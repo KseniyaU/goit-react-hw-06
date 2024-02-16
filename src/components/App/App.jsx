@@ -4,8 +4,18 @@ import '../App/App.module.css'
 import { ContactList } from '../ContactList/ContactList.jsx'
 import { SearchBox } from '../SearchBox/SearchBox.jsx'
 import {ContactForm} from '../ContactForm/ContactForm.jsx'
+import { useSelector } from 'react-redux'
+//npm install redux
+//npm install react-redux
+//npm install @redux-devtools/extension
+//npm install @reduxjs/toolkit
+//npm install @reduxjs/toolkit react-redux
+
 
 function App() {
+
+  const satate = useSelector(state => state.contacts);
+
   
   const contacts = [
     { id: 'id-1', name: 'Rosie Simpson', number: '459-12-56' },
@@ -14,18 +24,11 @@ function App() {
     { id: 'id-4', name: 'Annie Copeland', number: '227-91-26' },
   ]
   
+
   const [inputValue, setInputValue] = useState('');
   const [users, setUsers] = useState(() => {
-    //  contacts.map(evt => (evt))
     const savedContacts = window.localStorage.getItem("saved-contacts");
     return savedContacts ? JSON.parse(savedContacts) : contacts;
-    // if (JSON.parse(savedContacts) !== null) {
-    //   return JSON.parse(savedContacts);
-    // } else {
-    //   return (
-    //     contacts.map(evt => (evt))
-    //   )
-    // }
   })
     
 
