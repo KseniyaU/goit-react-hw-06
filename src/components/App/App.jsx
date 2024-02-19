@@ -1,5 +1,3 @@
-import { useState, useEffect } from 'react'
-
 import '../App/App.module.css'
 import { ContactList } from '../ContactList/ContactList.jsx'
 import { SearchBox } from '../SearchBox/SearchBox.jsx'
@@ -19,7 +17,7 @@ import { inputValue } from '../../redux/filtersSlice.js'
 function App() {
 
   const dispatch = useDispatch();
-  const contacts = useSelector(state => state.contacts);
+  const contacts = useSelector(state => state.contacts.abs);
   const filterValue = useSelector(state => state.filters)
 
     const AddUser = newUser => {
@@ -32,50 +30,24 @@ function App() {
 
   
 
-  // const [inputValue, setInputValue] = useState('');
-  // const [users, setUsers] = useState(() => {
-  //   const savedContacts = window.localStorage.getItem("saved-contacts");
-  //   return savedContacts ? JSON.parse(savedContacts) : contacts;
-  // })
-    console.log(typeof(contacts));
+    // console.log(contacts);
 
-  const handleChange = even => {
-    // // console.log(even.target.value);
-    // setInputValue(even.target.value)
+  const handleChange = even => { 
     dispatch(inputValue(even.target.value))
   }
 
-  // const targetName = 'Rosie Simpson';
 
 
-  // const visibleUsers = contacts.filter(user =>
-  //   user.name.toLowerCase().includes(filterValue.toLocaleLowerCase())
-  // )
-  // console.log(visibleUsers);
-
-//   const AddUser = newUser => {
-//     setUsers(prevUser => {
-//       return (
-//         [...prevUser, newUser]
-//       )
-//     })
-//   }
-//  useEffect(() => {
-//     window.localStorage.setItem('saved-contacts', JSON.stringify(users));
-//   }, [users]);
-
-//   const onDeleteContact = (id) => {
-//     setUsers((prevUsers) => prevUsers.filter((user) => user.id !== id))
-  
-//  }
- 
+  const visibleUsers = contacts.filter(user =>
+    user.name.toLowerCase().includes(filterValue.toLocaleLowerCase())
+  )
 
   return (
     <div>
       <h1>Phonebook</h1>
       <ContactForm onAdd={AddUser} ></ContactForm>
       <SearchBox valueIn={filterValue} onChange={ handleChange}></SearchBox>
-      <ContactList allContacts={contacts} onDeleteContact={ onDeleteContact} ></ContactList>
+      <ContactList allContacts={visibleUsers} onDeleteContact={ onDeleteContact} ></ContactList>
       
     </div>
   )
