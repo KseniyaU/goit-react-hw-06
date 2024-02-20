@@ -4,13 +4,19 @@ import { Formik, Form, Field, ErrorMessage } from 'formik';
 import * as Yup from "yup";
 import { useId } from 'react';
 import css from '../ContactForm/ContactForm.module.css'
+import { addContact } from '../../redux/contactsSlice.js'
+import { useDispatch } from 'react-redux'
 
 
-export const ContactForm = ({onAdd}) => {
+export const ContactForm = () => {
     const nameId = useId();
     const numberId = useId();
-    
+     const dispatch = useDispatch();
 
+
+   const onAdd = newUser => {
+    dispatch(addContact(newUser));
+  }
     const userSchema = Yup.object().shape(
         {
             name: Yup.string()
